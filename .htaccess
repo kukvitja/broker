@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteBase /
+	RewriteCond %{HTTP_HOST} ^brokerkh.net.ua$ [NC]
+	RewriteRule ^(.*)$ http://www.brokerkh.net.ua/$1 [R=301,L]
+	RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+	RewriteRule ^index\.php$ http://www.brokerkh.net.ua/ [R=301,L]
+</IfModule>
+
+
+AddDefaultCharset UTF-8
+# Not found
+ErrorDocument 404 /404.php
