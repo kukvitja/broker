@@ -6,5 +6,4 @@
 <meta name="description" content="<?=$contentd?>"/>
 <link rel="stylesheet" type="text/css" href="css/Style.css" />
 <link rel="shortcut icon" href="img/1472828512_1-49.ico" type="image/x-icon" /> <!--Логотип сайта -->
-<script src="s-gallery-master/js/jquery-1.8.2.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

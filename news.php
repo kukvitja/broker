@@ -3,6 +3,51 @@
 	session_start();
 	$name = $_SESSION['name'];
 	$ident = $_SESSION['id'];
+function addFile ($dir, $nameFile){
+    	$fileName = $nameFile.'.'.pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+      	if (move_uploaded_file($_FILES['file']['tmp_name'], $dir.$fileName)) {
+        // echo("Файл добавлено");
+      	}else{
+        echo("ERROR!!! Попробуйте пізніше");
+	 	}
+    }
+
+// $mysqli=false;
+// 	function connectDB () {
+// 		global $mysqli;
+// 		$mysqli=new mysqli ("brokerkh.mysql.ukraine.com.ua", "brokerkh_base", "kuk28011988", "brokerkh_base");
+// 		$mysqli->query("SET NAMES 'utf8'");
+
+// 	}
+// function closeDB () {
+// 		global $mysqli;
+// 		$mysqli->close;
+// 	}
+
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$nameSteti = trim(htmlspecialchars($_POST["nameSteti"]));
+		$teme = trim(htmlspecialchars($_POST['teme']));
+		$steti = trim(htmlspecialchars($_POST['steti']));
+	 	$dir = "img/neus/";
+	 	if (!empty($nameSteti) && !empty($teme) && !empty($steti)) {
+	 		if (is_array($_FILES)) {
+	 			include ("function/users.php");
+	 			$query = mysql_query("INSERT INTO `neus`(`title`, `entry`, `article`) VALUES ('$nameSteti','$teme','$steti')");
+	 				$name = mysql_query ("SELECT `id` FROM `neus` WHERE `title` = '$nameSteti'",$db);
+	 				$name1 = mysql_fetch_assoc($name);
+	 				$nameFile = $name1['id'];
+	 				addFile($dir, $nameFile);
+	 				echo "Add Neus";
+	 			
+	 		}else{
+	 			echo('add image');
+	 		}
+	 		
+	 	}else{
+	 		echo("Заповніть всі поля");
+	 	}
+	 	
+	} 
 ?>
 
 <!DOCTYPE html>
@@ -62,11 +107,11 @@
 <?php if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'moderator'): ?>
 <div id='addNeus'>
 	<span>Добавить Новость</span>
-	<form action="#" method="get" enctype="multipart/form-data">
+	<form method="post" enctype="multipart/form-data">
 		<input type="file" class="formLibel" name="file" accept="image/*"><br />
 		<input type="text" class="formLibel" name="nameSteti" placeholder="Заглавление"><br />
 		<input type="text" class="formLibel" name="teme" placeholder="Краткое описание"><br />
-		<textarea name="Steti" class="formLibel" placeholder="Статия"></textarea><br />
+		<textarea name="steti" class="formLibel" placeholder="Статия"></textarea><br />
 		<button class="formLibel">Добавить</button>
 
 	</form>
